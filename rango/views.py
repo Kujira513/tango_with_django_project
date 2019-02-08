@@ -27,15 +27,15 @@ def index(request):
     #return HttpResponse("Rango says hey there partner!<br/> <a href = '/rango/about/'>About</a>")
 
 def about(request):
+    request.session.set_test_cookie()
+    context_dict = {}
     if request.session.test_cookie_worked():
         print("TEST COOKIE WORKED!")
         request.session.delete_test_cookie()
-    # prints out whether the method is a GET or a POST
-    print(request.method)
-    # prints out the user name, if no one is logged in it prints `AnonymousUser`
-    print(request.user)
-
-    return render(request, 'rango/about.html',{})
+    visitor_cookie_handler(request)
+    context_dict['visits'] = request.session['visits']
+    response = render(request,'rango/about.html',context=context_dict)
+    return response
     #return HttpResponse("Rango says here is the about page.<br/> <a href = '/rango/'>Index</a>")
 
 def show_category(request, category_name_slug):
