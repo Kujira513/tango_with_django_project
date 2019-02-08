@@ -23,7 +23,12 @@ def index(request):
     #return HttpResponse("Rango says hey there partner!<br/> <a href = '/rango/about/'>About</a>")
 
 def about(request):
-    return render(request, 'rango/about.html')
+    # prints out whether the method is a GET or a POST
+    print(request.method)
+    # prints out the user name, if no one is logged in it prints `AnonymousUser`
+    print(request.user)
+
+    return render(request, 'rango/about.html',{})
     #return HttpResponse("Rango says here is the about page.<br/> <a href = '/rango/'>Index</a>")
 
 def show_category(request, category_name_slug):
